@@ -11,6 +11,25 @@ def print_hi(name):
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
+    print_hi('PyCharm PDS project')
+    import pds
+    chm = pds.Chamber("THIKL21530")
+    chm.state_controller.set(chm.state_controller.dc)
+    chm.state_controller.update()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/

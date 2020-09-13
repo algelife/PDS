@@ -1,31 +1,26 @@
-
-
 class Chamber:
     def __init__(self, name):
-        self.name = "THIKL21720"
+        self.name = name
         self.state_controller = StateController()
+        self.dc = DataCollection()
+        self.dp = DataPreprocessing()
+        self.mi = ModelInference()
+        self.ru = ResultUploading()
 
 
 
 class StateController:
     def __init__(self):
-        self.dc = DataCollection()
-        self.dp = DataPreprocessing()
-        self.mi = ModelInference()
-        self.m_state = self.dc
+        self.m_state = None
 
-    def setState(self, state):
+    def set(self, state):
         print('loading state', state.__repr__())
         self.m_bRunBegin = False
         self.m_state = state
 
-    def stateUpdate(self):
+    def update(self):
         self.m_state.stateBegin()
         self.m_bRunBegin = True
-
-
-
-
 class State:
     def stateBegin(self):
         pass
@@ -33,8 +28,6 @@ class State:
         pass
     def stateUpdate(self):
         pass
-
-
 class DataCollection(State):
 
     def stateBegin(self):
@@ -45,8 +38,6 @@ class DataCollection(State):
 
     def stateUpdate(self):
         print("update DataCollection")
-
-
 class DataPreprocessing(State):
     def stateBegin(self):
         print("start DataPreprocessing")
@@ -56,7 +47,6 @@ class DataPreprocessing(State):
 
     def stateUpdate(self):
         print("update DataPreprocessing")
-
 class ModelInference(State):
     def stateBegin(self):
         print("start ModelInference")
@@ -66,7 +56,6 @@ class ModelInference(State):
 
     def stateUpdate(self):
         print("update ModelInference")
-
 class ResultUploading(State):
     def stateBegin(self):
         print("start ResultUploading")
@@ -77,8 +66,16 @@ class ResultUploading(State):
     def stateUpdate(self):
         print("update ResultUploading")
 
-
-
+if __name__ == "__main__":
+    chm = Chamber("THIKL21720")
+    chm.state_controller.set(chm.dc)
+    chm.state_controller.update()
+    chm.state_controller.set(chm.dp)
+    chm.state_controller.update()
+    chm.state_controller.set(chm.mi)
+    chm.state_controller.update()
+    chm.state_controller.set(chm.ru)
+    chm.state_controller.update()
 
 
 
